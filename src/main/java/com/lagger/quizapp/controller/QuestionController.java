@@ -18,12 +18,12 @@ public class QuestionController {
     private QuestionService questionService;
 
     @GetMapping("/allQuestions")
-    public List<Question> getAllQuestions(){
+    public ResponseEntity<List<Question>> getAllQuestions(){
         return questionService.getAllQuestions();
     }
 
     @GetMapping("/category/{category}")
-    public List<Question> getQuestionsByCategory(@PathVariable String category){
+    public ResponseEntity<List<Question>> getQuestionsByCategory(@PathVariable String category){
         return questionService.getAllQuestionByCategory(category);
     }
 
@@ -39,5 +39,10 @@ public class QuestionController {
 
         List<Question> savedQuestions = questionService.saveQuestions(hardcodedQuestions);
         return new ResponseEntity<>(savedQuestions, HttpStatus.OK);
+    }
+
+    @PostMapping("/add")
+    public String addQuestion(@RequestBody Question question){
+        return questionService.addQuestion(question);
     }
 }
